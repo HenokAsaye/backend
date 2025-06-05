@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const taskScehema = new mongoose.Schema({
+const taskSchema = new mongoose.Schema({
     title:{
         type:String
     },
@@ -12,7 +12,7 @@ const taskScehema = new mongoose.Schema({
         enum:["inprogress","completed"],
         default:"inprogress"
     },
-    DueDate:{
+    dueDate:{
         type:Date,
     },
     updatedAt:{
@@ -20,5 +20,5 @@ const taskScehema = new mongoose.Schema({
         default:Date.now
     }
 })
-const Task = mongoose.model("tasks",taskScehema)
+const Task = mongoose.model("tasks",taskSchema)
 export default Task;
