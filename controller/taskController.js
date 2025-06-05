@@ -1,5 +1,5 @@
-import { Task } from "../model/taskModel.js";
-import { HTTP_STATUS_CODE } from "http-status-code"; 
+import Task from "../model/taskModel.js";
+import HTTP_STATUS_CODE  from "http-status-code"; 
 
 export const createTask = async (req, res) => {
     const { title, description, status, DueDate } = req.body;
