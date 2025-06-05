@@ -1,33 +1,22 @@
 import { Task } from "../model/taskModel.js";
-import { HTTP_STATUS_CODE } from "http-status-code"; // Assuming this import is correct for your setup
-
-// Helper function for consistent error responses (optional)
-// const sendErrorResponse = (res, statusCode, message) => {
-//     return res.status(statusCode).json({ message });
-// };
+import { HTTP_STATUS_CODE } from "http-status-code"; 
 
 export const createTask = async (req, res) => {
     const { title, description, status, DueDate } = req.body;
-
-    // BEST PRACTICE: Add input validation here
-    // e.g., check if title and description are provided and are strings
-    // if (!title || typeof title !== 'string') {
-    //     return res.status(HTTP_STATUS_CODE.BAD_REQUEST).json({ message: 'Title is required and must be a string.' });
-    // }
 
     try {
         const task = await Task.create({
             title,
             description,
             status,
-            DueDate // IMPORTANT: Ensure 'DueDate' casing matches your Task model definition
+            DueDate 
         });
         res.status(HTTP_STATUS_CODE.CREATED).json({
             message: "Task Created Successfully",
             task
         });
     } catch (error) {
-        // console.error("Error creating task:", error); // Optional: server-side logging
+
         res.status(HTTP_STATUS_CODE.INTERNAL_SERVER_ERROR).json({
             message: error.message || "An unexpected error occurred while creating the task."
         });
@@ -40,7 +29,7 @@ export const getAllTasks = async (req, res) => {
 
         if (!tasks || tasks.length === 0) {
             return res.status(HTTP_STATUS_CODE.NOT_FOUND).json({
-                message: "No Tasks Here🔍" // Keeps original message for no tasks found
+                message: "No Tasks Here🔍" 
             });
         }
 
@@ -49,7 +38,6 @@ export const getAllTasks = async (req, res) => {
             tasks
         });
     } catch (error) {
-        // console.error("Error fetching all tasks:", error);
         res.status(HTTP_STATUS_CODE.INTERNAL_SERVER_ERROR).json({
             message: error.message || "An unexpected error occurred while fetching tasks."
         });
@@ -58,11 +46,6 @@ export const getAllTasks = async (req, res) => {
 
 export const getTaskById = async (req, res) => {
     const { taskId } = req.params;
-
-    // BEST PRACTICE: Validate taskId (e.g., if it's a valid MongoDB ObjectId format)
-    // if (!mongoose.Types.ObjectId.isValid(taskId)) {
-    //     return res.status(HTTP_STATUS_CODE.BAD_REQUEST).json({ message: 'Invalid Task ID format.' });
-    // }
 
     try {
         const task = await Task.findById(taskId);
@@ -78,7 +61,6 @@ export const getTaskById = async (req, res) => {
             task
         });
     } catch (error) {
-        // console.error(`Error fetching task by ID ${taskId}:`, error);
         res.status(HTTP_STATUS_CODE.INTERNAL_SERVER_ERROR).json({
             message: error.message || "An unexpected error occurred while fetching the task."
         });
@@ -89,14 +71,12 @@ export const updateTask = async (req, res) => {
     const { taskId } = req.params;
     const { title, description, status, DueDate } = req.body;
 
-    // BEST PRACTICE: Validate taskId and req.body contents
-
     try {
         const updateFields = {};
         if (title !== undefined) updateFields.title = title;
         if (description !== undefined) updateFields.description = description;
         if (status !== undefined) updateFields.status = status;
-        if (DueDate !== undefined) updateFields.DueDate = DueDate; // IMPORTANT: Ensure 'DueDate' casing matches your Task model
+        if (DueDate !== undefined) updateFields.DueDate = DueDate; 
 
         if (Object.keys(updateFields).length === 0) {
             return res.status(HTTP_STATUS_CODE.BAD_REQUEST).json({
@@ -107,7 +87,7 @@ export const updateTask = async (req, res) => {
         const updatedTask = await Task.findByIdAndUpdate(
             taskId,
             updateFields, 
-            { new: true, runValidators: true } // new:true returns the updated doc, runValidators ensures schema validation
+            { new: true, runValidators: true } 
         );
 
         if (!updatedTask) {
@@ -121,7 +101,6 @@ export const updateTask = async (req, res) => {
             task: updatedTask
         });
     } catch (error) {
-        // console.error(`Error updating task ${taskId}:`, error);
         res.status(HTTP_STATUS_CODE.INTERNAL_SERVER_ERROR).json({
             message: error.message || "An unexpected error occurred while updating the task."
         });
