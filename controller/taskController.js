@@ -1,5 +1,5 @@
 import Task from "../model/taskModel.js";
-import HTTP_STATUS_CODE  from "http-status-code"; 
+import { StatusCodes } from "http-status-codes"; 
 
 export const createTask = async (req, res) => {
     const { title, description, status, DueDate } = req.body;
@@ -11,13 +11,12 @@ export const createTask = async (req, res) => {
             status,
             DueDate 
         });
-        res.status(HTTP_STATUS_CODE.CREATED).json({
+        res.status(StatusCodes.CREATED).json({
             message: "Task Created Successfully",
             task
         });
     } catch (error) {
-
-        res.status(HTTP_STATUS_CODE.INTERNAL_SERVER_ERROR).json({
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
             message: error.message || "An unexpected error occurred while creating the task."
         });
     }
@@ -28,17 +27,17 @@ export const getAllTasks = async (req, res) => {
         const tasks = await Task.find();
 
         if (!tasks || tasks.length === 0) {
-            return res.status(HTTP_STATUS_CODE.NOT_FOUND).json({
+            return res.status(StatusCodes.NOT_FOUND).json({
                 message: "No Tasks Here🔍" 
             });
         }
 
-        res.status(HTTP_STATUS_CODE.OK).json({
+        res.status(StatusCodes.OK).json({
             message: "Tasks fetched successfully",
             tasks
         });
     } catch (error) {
-        res.status(HTTP_STATUS_CODE.INTERNAL_SERVER_ERROR).json({
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
             message: error.message || "An unexpected error occurred while fetching tasks."
         });
     }
@@ -51,17 +50,17 @@ export const getTaskById = async (req, res) => {
         const task = await Task.findById(taskId);
 
         if (!task) {
-            return res.status(HTTP_STATUS_CODE.NOT_FOUND).json({
+            return res.status(StatusCodes.NOT_FOUND).json({
                 message: "Task not found"
             });
         }
 
-        res.status(HTTP_STATUS_CODE.OK).json({
+        res.status(StatusCodes.OK).json({
             message: "Task fetched successfully",
             task
         });
     } catch (error) {
-        res.status(HTTP_STATUS_CODE.INTERNAL_SERVER_ERROR).json({
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
             message: error.message || "An unexpected error occurred while fetching the task."
         });
     }
@@ -79,7 +78,7 @@ export const updateTask = async (req, res) => {
         if (DueDate !== undefined) updateFields.DueDate = DueDate; 
 
         if (Object.keys(updateFields).length === 0) {
-            return res.status(HTTP_STATUS_CODE.BAD_REQUEST).json({
+            return res.status(StatusCodes.BAD_REQUEST).json({
                 message: "No update fields provided. Please provide at least one field to update."
             });
         }
@@ -91,17 +90,17 @@ export const updateTask = async (req, res) => {
         );
 
         if (!updatedTask) {
-            return res.status(HTTP_STATUS_CODE.NOT_FOUND).json({
+            return res.status(StatusCodes.NOT_FOUND).json({
                 message: "Task not found, update failed."
             });
         }
 
-        res.status(HTTP_STATUS_CODE.OK).json({
+        res.status(StatusCodes.OK).json({
             message: "Task updated successfully",
             task: updatedTask
         });
     } catch (error) {
-        res.status(HTTP_STATUS_CODE.INTERNAL_SERVER_ERROR).json({
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
             message: error.message || "An unexpected error occurred while updating the task."
         });
     }
@@ -112,18 +111,17 @@ export const deleteTask = async (req, res) => {
 
     try {
         const task = await Task.findByIdAndDelete(id);
-
         if (!task) {
-            return res.status(HTTP_STATUS_CODE.NOT_FOUND).json({
+            return res.status(StatusCodes.NOT_FOUND).json({
                 message: "Task not found, deletion failed."
             });
         }
 
-        res.status(HTTP_STATUS_CODE.OK).json({
+        res.status(StatusCodes.OK).json({
             message: "Task deleted successfully"
         });
     } catch (error) {
-        res.status(HTTP_STATUS_CODE.INTERNAL_SERVER_ERROR).json({
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
             message: error.message || "An unexpected error occurred while deleting the task."
         });
     }
