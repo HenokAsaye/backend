@@ -1,5 +1,4 @@
-import mongoose from momgoose;
-
+import mongoose from "mongoose";
 
 const taskScehema = new mongoose.Schema({
     title:{
@@ -21,7 +20,5 @@ const taskScehema = new mongoose.Schema({
         default:Date.now
     }
 })
-
-
 const Task = mongoose.model("tasks",taskScehema)
 export default Task;
