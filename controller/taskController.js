@@ -1,4 +1,4 @@
-import { Task } from "../model/taskModel";
+import { Task } from "../model/taskModel.js";
 import { HTTP_STATUS_CODE } from "http-status-code"; // Assuming this import is correct for your setup
 
 // Helper function for consistent error responses (optional)
@@ -34,7 +34,7 @@ export const createTask = async (req, res) => {
     }
 };
 
-export const getallTasks = async (req, res) => {
+export const getAllTasks = async (req, res) => {
     try {
         const tasks = await Task.find();
 
@@ -124,6 +124,28 @@ export const updateTask = async (req, res) => {
         // console.error(`Error updating task ${taskId}:`, error);
         res.status(HTTP_STATUS_CODE.INTERNAL_SERVER_ERROR).json({
             message: error.message || "An unexpected error occurred while updating the task."
+        });
+    }
+};
+
+export const deleteTask = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const task = await Task.findByIdAndDelete(id);
+
+        if (!task) {
+            return res.status(HTTP_STATUS_CODE.NOT_FOUND).json({
+                message: "Task not found, deletion failed."
+            });
+        }
+
+        res.status(HTTP_STATUS_CODE.OK).json({
+            message: "Task deleted successfully"
+        });
+    } catch (error) {
+        res.status(HTTP_STATUS_CODE.INTERNAL_SERVER_ERROR).json({
+            message: error.message || "An unexpected error occurred while deleting the task."
         });
     }
 };
