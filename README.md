@@ -34,12 +34,12 @@ A simple RESTful API for managing tasks, built with Node.js, Express, and MongoD
 
 4.  **Create a `.env` file** in the root of the project directory ([c:\Users\hp\backend\.env](cci:7://file:///Users/hp/backend/.env:0:0-0:0)) with the following content:
     ```env
-    # MongoDB Connection URI
-    # Replace with your local MongoDB URI or your MongoDB Atlas connection string
-    # Example for local MongoDB:
+    MongoDB Connection URI
+    Replace with your local MongoDB URI or your MongoDB Atlas connection string
+    Example for local MongoDB:
     MONGO_URI=mongodb://localhost:27017/TaskManager 
-    # Example for MongoDB Atlas (ensure password is URL encoded if it contains special characters):
-    # MONGO_URI=mongodb+srv://your_username:your_password@your_cluster.mongodb.net/your_database_name?retryWrites=true&w=majority
+    Example for MongoDB Atlas (ensure password is URL encoded if it contains special characters):
+    MONGO_URI=mongodb+srv://your_username:your_password@your_cluster.mongodb.net/your_database_name?retryWrites=true&w=majority
 
     # Port for the server
     PORT=5000
