@@ -14,7 +14,7 @@ A simple RESTful API for managing tasks, built with Node.js, Express, and MongoD
 *   [npm](https://www.npmjs.com/) (usually comes with Node.js) or [yarn](https://yarnpkg.com/)
 *   [MongoDB](https://www.mongodb.com/try/download/community) instance (local or a cloud service like MongoDB Atlas).
 
-## Setup
+Setup
 
 1.  **Clone the repository (if applicable) or download the files.**
 
@@ -41,13 +41,13 @@ A simple RESTful API for managing tasks, built with Node.js, Express, and MongoD
     Example for MongoDB Atlas (ensure password is URL encoded if it contains special characters):
     MONGO_URI=mongodb+srv://your_username:your_password@your_cluster.mongodb.net/your_database_name?retryWrites=true&w=majority
 
-    # Port for the server
+    Port for the server
     PORT=5000
     ```
     *   Update `MONGO_URI` with your actual MongoDB connection string. If using a local MongoDB, ensure it's running.
     *   The `PORT` variable defines the port on which the server will run.
 
-## Running the Application
+Running the Application
 
 To start the server with automatic restarts on file changes (using nodemon):
 
